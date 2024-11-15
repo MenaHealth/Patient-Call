@@ -6,7 +6,7 @@ const AppBuilderWrapper = dynamic(
     () => import('../src/components/AppBuilderWrapper'),
     {
         ssr: false,
-        loading: () => <div>Loading Med-Flow...</div>
+        loading: () => <div>Loading...</div>
     }
 )
 
