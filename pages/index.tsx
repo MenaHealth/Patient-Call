@@ -9,6 +9,7 @@ const AppBuilderWrapper = dynamic(() => import('../src/components/AppBuilderWrap
 const Page = () => {
   return (
     <div>
+      <h1>hello</h1>
       <AppBuilderWrapper />
     </div>
   );
