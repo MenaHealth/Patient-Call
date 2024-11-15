@@ -12,7 +12,9 @@ const AppBuilderWrapper: React.FC = () => {
     useEffect(() => {
         const loadAgoraAppBuilder = async () => {
             try {
+                console.log('Attempting to load @appbuilder/react');
                 const module = await import('@appbuilder/react');
+                console.log('Module loaded:', module);
                 setAgoraAppBuilder(module.default as AgoraAppBuilderType);
             } catch (error) {
                 console.error('Failed to load AgoraAppBuilder:', error);
@@ -26,9 +28,11 @@ const AppBuilderWrapper: React.FC = () => {
         return <div>Loading AgoraAppBuilder...</div>;
     }
 
+    console.log('AgoraAppBuilder loaded:', AgoraAppBuilder);
+
     return (
         <div style={{ display: "flex", width: "100vw", height: "550px" }}>
-            <AgoraAppBuilder.View />
+            {AgoraAppBuilder.View ? <AgoraAppBuilder.View /> : <div>AgoraAppBuilder.View is not available</div>}
         </div>
     );
 };
