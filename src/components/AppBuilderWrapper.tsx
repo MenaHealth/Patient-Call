@@ -1,3 +1,4 @@
+// src/components/AppBuilderWrapper.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -47,6 +48,19 @@ export default function AppBuilderWrapper() {
             </div>
         )
     }
+
+    useEffect(() => {
+        const loadAgoraAppBuilder = async () => {
+            try {
+                const module = await import('@appbuilder/react');
+                console.log('Module:', module); // Add this
+            } catch (error) {
+                console.error('Failed to load AgoraAppBuilder:', error);
+            }
+        };
+
+        loadAgoraAppBuilder();
+    }, []);
 
     return (
         <div className="w-full h-[550px]">
