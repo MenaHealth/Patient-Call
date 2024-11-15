@@ -1,26 +1,18 @@
-// pages/index.tsx
-
 import React from 'react';
 import dynamic from 'next/dynamic';
 
 const AppBuilderWrapper = dynamic(
-  () => import('../src/components/AppBuilderWrapper'),
-  { ssr: false }
+    () => import('../src/components/AppBuilderWrapper'),
+    { ssr: false }
 );
 
-
-const Page = () => {
-  return (
-    <div>
-      <AppBuilderWrapper />
-    </div>
-  );
+const Page: React.FC = () => {
+    return (
+        <div>
+            <h1>Welcome to Med-Flow</h1>
+            <AppBuilderWrapper />
+        </div>
+    );
 };
 
 export default Page;
- 
- 
- 
- 
- 
- 
