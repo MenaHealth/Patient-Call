@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "scripts": {
+    "vercel-build": "npm ci && next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

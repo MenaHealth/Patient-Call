@@ -1,40 +1,56 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
+import { LoadingSpinner } from './LoadingSpinner'
 
 interface AgoraAppBuilderType {
-    View: React.ComponentType<any>;
+    View: React.ComponentType<any>
 }
 
-const AppBuilderWrapper: React.FC = () => {
-    const [AgoraAppBuilder, setAgoraAppBuilder] = useState<AgoraAppBuilderType | null>(null);
+export default function AppBuilderWrapper() {
+    const [AgoraAppBuilder, setAgoraAppBuilder] = useState<AgoraAppBuilderType | null>(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         const loadAgoraAppBuilder = async () => {
             try {
-                console.log('Attempting to load @appbuilder/react');
-                const module = await import('@appbuilder/react');
-                console.log('Module loaded:', module);
-                setAgoraAppBuilder(module.default as AgoraAppBuilderType);
+                console.log('Attempting to load @appbuilder/react')
+                const module = await import('@appbuilder/react')
+                console.log('Module loaded:', module)
+
+                if (typeof module.default === 'object' && module.default !== null && 'View' in module.default) {
+                    setAgoraAppBuilder(module.default as AgoraAppBuilderType)
+                } else {
+                    setError('AgoraAppBuilder is not available in the expected format')
+                }
             } catch (error) {
-                console.error('Failed to load AgoraAppBuilder:', error);
+                console.error('Failed to load AgoraAppBuilder:', error)
+                setError(`Failed to load AgoraAppBuilder: ${error instanceof Error ? error.message : String(error)}`)
+            } finally {
+                setIsLoading(false)
             }
-        };
+        }
 
-        loadAgoraAppBuilder();
-    }, []);
+        loadAgoraAppBuilder()
+    }, [])
 
-    if (!AgoraAppBuilder) {
-        return <div>Loading AgoraAppBuilder...</div>;
+    if (isLoading) {
+        return <LoadingSpinner />
     }
 
-    console.log('AgoraAppBuilder loaded:', AgoraAppBuilder);
+    if (error || !AgoraAppBuilder) {
+        return (
+            <div className="max-w-md mx-auto my-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                <h2 className="font-bold mb-2">Error</h2>
+                <p>{error || 'App Builder is not available'}</p>
+            </div>
+        )
+    }
 
     return (
-        <div style={{ display: "flex", width: "100vw", height: "550px" }}>
-            {AgoraAppBuilder.View ? <AgoraAppBuilder.View /> : <div>AgoraAppBuilder.View is not available</div>}
+        <div className="w-full h-[550px]">
+            <AgoraAppBuilder.View />
         </div>
-    );
-};
-
-export default AppBuilderWrapper;
+    )
+}

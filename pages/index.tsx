@@ -1,45 +1,21 @@
-'use client';
+'use client'
 
-import React, { ErrorInfo } from 'react';
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
+import { LoadingSpinner } from '../src/components/LoadingSpinner'
 
 const AppBuilderWrapper = dynamic(
     () => import('../src/components/AppBuilderWrapper'),
-    { ssr: false }
-);
-
-class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
-    constructor(props: {children: React.ReactNode}) {
-        super(props);
-        this.state = { hasError: false };
+    {
+        ssr: false,
+        loading: () => <LoadingSpinner />
     }
+)
 
-    static getDerivedStateFromError(_: Error) {
-        return { hasError: true };
-    }
-
-    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.error("Uncaught error:", error, errorInfo);
-    }
-
-    render() {
-        if (this.state.hasError) {
-            return <h1>Something went wrong.</h1>;
-        }
-
-        return this.props.children;
-    }
-}
-
-const Page: React.FC = () => {
+export default function Page() {
     return (
-        <ErrorBoundary>
-            <div>
-                <h1>Welcome to Med-Flow</h1>
-                <AppBuilderWrapper />
-            </div>
-        </ErrorBoundary>
-    );
-};
-
-export default Page;
+        <div className="container mx-auto px-4 py-8">
+            <h1 className="text-4xl font-bold mb-8">Welcome to Med-Flow</h1>
+            <AppBuilderWrapper />
+        </div>
+    )
+}
