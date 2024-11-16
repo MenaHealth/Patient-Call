@@ -1,5 +1,6 @@
 // pages/index.tsx
 import React from 'react'
+import AppBuilderReactSDK from "@appbuilder/react";
 import dynamic from 'next/dynamic'
 
 const AppBuilderWrapper = dynamic(
@@ -14,7 +15,13 @@ export default function Home() {
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold mb-8"></h1>
-            <AppBuilderWrapper />
+            <AppBuilderReactSDK.View />
         </div>
     )
 }
+
+//return (
+    ///<div style={{ display: "flex", width: "100vw", height: "100vh" }}>
+   //   <AppBuilderReactSDK.View />
+   // </div>
+ // );

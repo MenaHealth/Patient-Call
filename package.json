@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node_modules/nex/dist/bin/next start -p $PORT",
+    "start": "react-native start",
     "lint": "next lint"
   },
   "dependencies": {
     "@appbuilder/react": "file:lib/appbuilder-react-3.0.30-1-amUI1cE5sg.tgz",
     "clsx": "^2.0.0",
-    "next": "^14.2.17",
+    "next": "^14.2.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^1.14.0"
